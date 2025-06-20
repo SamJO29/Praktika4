@@ -1,0 +1,14 @@
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\bin\Debug\net8.0\Praktika4.exe
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\bin\Debug\net8.0\Praktika4.deps.json
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\bin\Debug\net8.0\Praktika4.runtimeconfig.json
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\bin\Debug\net8.0\Praktika4.dll
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\bin\Debug\net8.0\Praktika4.pdb
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\obj\Debug\net8.0\Praktika4.GeneratedMSBuildEditorConfig.editorconfig
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\obj\Debug\net8.0\Praktika4.AssemblyInfoInputs.cache
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\obj\Debug\net8.0\Praktika4.AssemblyInfo.cs
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\obj\Debug\net8.0\Praktika4.csproj.CoreCompileInputs.cache
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\obj\Debug\net8.0\Praktika4.dll
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\obj\Debug\net8.0\refint\Praktika4.dll
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\obj\Debug\net8.0\Praktika4.pdb
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\obj\Debug\net8.0\Praktika4.genruntimeconfig.cache
+C:\visualSTUDIO)projiects\Praktika4\Praktika4\obj\Debug\net8.0\ref\Praktika4.dll
