@@ -16,7 +16,8 @@
                 Console.WriteLine("=== Главное меню ===");
                 Console.WriteLine("1) BLACKJACK");
                 Console.WriteLine("2) База данных учебного заведения");
-                Console.WriteLine("3) Выход");
+                Console.WriteLine("3) ToDo List");
+                Console.WriteLine("4) Выход");
                 Console.Write("Выберите опцию: ");
 
                 string userChoice = Console.ReadLine();
@@ -29,6 +30,10 @@
                     PeopleDatabase.ShowRecords();
                 }
                 else if (userChoice == "3")
+                {
+                    ToDoList.Run();
+                }
+                else if (userChoice == "4")
                 {
                     Console.WriteLine("Выход из программы.");
                     break;
@@ -45,7 +50,7 @@
         }
     }
 
-    // Модуль карточной игры
+    // Модуль BLACKJACK
     class CardGame
     {
         static Random cardGenerator = new Random();
@@ -118,7 +123,7 @@
         }
     }
 
-    // Модуль базы данных людей
+    // Модуль базы данных учебного заведения
     static class PeopleDatabase
     {
         public static void ShowRecords()
@@ -182,6 +187,165 @@
         public override string GetDetails()
         {
             return $"[Работник]\nИмя: {FullName}\nВозраст: {Years}\nОрганизация: {Organization}\nДолжность: {JobTitle}";
+        }
+    }
+
+    // === Модуль ToDoList ===
+    enum TaskStatus { New, InProgress, Completed }
+
+    class TaskItem
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public DateTime DueDate { get; set; }
+        public TaskStatus Status { get; set; }
+
+        public TaskItem(int id, string title, DateTime dueDate)
+        {
+            Id = id;
+            Title = title;
+            DueDate = dueDate;
+            Status = TaskStatus.New;
+        }
+
+        public void Display()
+        {
+            Console.WriteLine($"{Id}) {Title} — до {DueDate.ToShortDateString()} — статус: {Status}");
+        }
+    }
+
+    static class ToDoList
+    {
+        private static List<TaskItem> tasks = new List<TaskItem>();
+        private static int nextId = 1;
+        private const int MaxTasks = 100;
+
+        public static void Run()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("=== ToDo List Меню ===");
+                Console.WriteLine("1) Показать задачи");
+                Console.WriteLine("2) Добавить задачу");
+                Console.WriteLine("3) Редактировать задачу");
+                Console.WriteLine("4) Удалить задачу");
+                Console.WriteLine("0) Назад в меню");
+                Console.Write("Ваш выбор: ");
+
+                string input = Console.ReadLine();
+                switch (input)
+                {
+                    case "1":
+                        ShowAll();
+                        break;
+                    case "2":
+                        AddTask();
+                        break;
+                    case "3":
+                        EditTask();
+                        break;
+                    case "4":
+                        DeleteTask();
+                        break;
+                    case "0":
+                        return;
+                    default:
+                        Console.WriteLine("Неверный ввод.");
+                        break;
+                }
+
+                Console.WriteLine("\nНажмите Enter для продолжения...");
+                Console.ReadLine();
+            }
+        }
+
+        static void ShowAll()
+        {
+            Console.WriteLine("\n=== Список задач ===");
+            if (tasks.Count == 0)
+            {
+                Console.WriteLine("Пусто.");
+                return;
+            }
+            foreach (var task in tasks)
+                task.Display();
+        }
+
+        static void AddTask()
+        {
+            if (tasks.Count >= MaxTasks)
+            {
+                Console.WriteLine("Достигнут лимит задач.");
+                return;
+            }
+
+            Console.Write("Введите название задачи: ");
+            string title = Console.ReadLine();
+
+            Console.Write("Введите дату (гггг-мм-дд): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime dueDate))
+            {
+                Console.WriteLine("Неверный формат даты.");
+                return;
+            }
+
+            tasks.Add(new TaskItem(nextId++, title, dueDate));
+            Console.WriteLine("Задача добавлена.");
+        }
+
+        static void EditTask()
+        {
+            Console.Write("ID задачи для редактирования: ");
+            if (!int.TryParse(Console.ReadLine(), out int id))
+            {
+                Console.WriteLine("Неверный ID.");
+                return;
+            }
+
+            var task = tasks.Find(t => t.Id == id);
+            if (task == null)
+            {
+                Console.WriteLine("Не найдено.");
+                return;
+            }
+
+            Console.Write("Новое название (пусто — без изменений): ");
+            string newTitle = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(newTitle))
+                task.Title = newTitle;
+
+            Console.Write("Новая дата (пусто — без изменений): ");
+            string dateInput = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(dateInput) && DateTime.TryParse(dateInput, out DateTime newDate))
+                task.DueDate = newDate;
+
+            Console.WriteLine("Выберите статус: 0-New, 1-InProgress, 2-Completed");
+            if (Enum.TryParse(Console.ReadLine(), out TaskStatus newStatus))
+                task.Status = newStatus;
+
+            Console.WriteLine("Обновлено.");
+        }
+
+        static void DeleteTask()
+        {
+            Console.Write("ID задачи для удаления: ");
+            if (!int.TryParse(Console.ReadLine(), out int id))
+            {
+                Console.WriteLine("Неверный ID.");
+                return;
+            }
+
+            var task = tasks.Find(t => t.Id == id);
+            if (task != null)
+            {
+                tasks.Remove(task);
+                Console.WriteLine("Удалено.");
+            }
+            else
+            {
+                Console.WriteLine("Не найдено.");
+            }
         }
     }
 }
